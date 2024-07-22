@@ -106,11 +106,9 @@ export const drawSegment = (
 		borderChar.repeat(endPos - centerPointPos - 1) +
 		endChar;
 
-	if (position === "top") {
-		return contentRow + "\n" + segmentRow;
-	} else {
-		return segmentRow + "\n" + contentRow;
-	}
+	return position === "top"
+		? `${contentRow}\n${segmentRow}`
+		: `${segmentRow}\n${contentRow}`;
 };
 
 export const array2Doc = <T>(document: ArrayDocument<T>): string => {
