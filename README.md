@@ -12,4 +12,10 @@ To run:
 bun run index.ts
 ```
 
-This project was created using `bun init` in bun v1.1.0. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+# arraydoc-js
+
+arraydoc-js is a library that provides a way to visualize arrays in JavaScript.
+
+```bash
+arraydoc ARRAY
+```
