@@ -2,8 +2,10 @@
   "name": "arraydoc-js",
   "module": "index.ts",
   "type": "module",
+  "main": "src/index.ts",
+  "types": "src/type.d.ts",
   "scripts": {
-    "start": "bun run index.ts"
+    "start": "bun run src/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
