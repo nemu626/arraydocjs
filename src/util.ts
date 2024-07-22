@@ -3,9 +3,7 @@
  * Full-width characters are counted as 2, and half-width characters are counted as 1.
  */
 export const countTextLength = (str: string): number =>
-	str
-		.split("")
-		.reduce((acc, cur): number => acc + (isFullWidthChar(cur) ? 2 : 1), 0);
+	str.split("").reduce((acc, cur): number => acc + (isFullWidthChar(cur) ? 2 : 1), 0);
 
 export const isFullWidthChar = (char: string): boolean => {
 	const codePoint = char.codePointAt(0);
@@ -22,21 +20,13 @@ export const isFullWidthChar = (char: string): boolean => {
 	);
 };
 
-export const padEndFullWidthChar = (
-	str: string,
-	length: number,
-	padStr: string,
-): string => {
+export const padEndFullWidthChar = (str: string, length: number, padStr: string): string => {
 	const charLength = countTextLength(str);
 	console.log(length, charLength);
 	return str + padStr.repeat(length - charLength);
 };
 
-export const padCenterFullWidthChar = (
-	str: string,
-	length: number,
-	padStr: string,
-): string => {
+export const padCenterFullWidthChar = (str: string, length: number, padStr: string): string => {
 	const charLength = countTextLength(str);
 	const padLength = length - charLength;
 	const padLeft = Math.floor(padLength / 2);

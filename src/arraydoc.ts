@@ -1,10 +1,5 @@
 import { BorderChar, DefaultDocumentStyle } from "./constant";
-import type {
-	ArrayDocument,
-	DocumentStyle,
-	Segment,
-	SegmentPosition,
-} from "./type";
+import type { ArrayDocument, DocumentStyle, Segment, SegmentPosition } from "./type";
 import { countTextLength, padCenterFullWidthChar } from "./util";
 
 export const array2String = (array: string[], style: DocumentStyle): string => {
@@ -15,9 +10,7 @@ export const array2String = (array: string[], style: DocumentStyle): string => {
 			BorderChar.leftTop[lineStyle],
 			BorderChar.horizontal[lineStyle],
 			paddingSpace,
-			array.map((s) =>
-				BorderChar.horizontal[lineStyle].repeat(countTextLength(s)),
-			),
+			array.map((s) => BorderChar.horizontal[lineStyle].repeat(countTextLength(s))),
 			BorderChar.topT[lineStyle],
 			BorderChar.rightTop[lineStyle],
 		),
@@ -35,9 +28,7 @@ export const array2String = (array: string[], style: DocumentStyle): string => {
 			BorderChar.leftBottom[lineStyle],
 			BorderChar.horizontal[lineStyle],
 			paddingSpace,
-			array.map((s) =>
-				BorderChar.horizontal[lineStyle].repeat(countTextLength(s)),
-			),
+			array.map((s) => BorderChar.horizontal[lineStyle].repeat(countTextLength(s))),
 			BorderChar.bottomT[lineStyle],
 			BorderChar.rightBottom[lineStyle],
 		),
@@ -57,10 +48,7 @@ export const drawCharLine = (
 	const result =
 		start +
 		contents
-			.map(
-				(c, i) =>
-					`${padString}${c}${padString}${i !== contents.length - 1 ? interBorder : ""}`,
-			)
+			.map((c, i) => `${padString}${c}${padString}${i !== contents.length - 1 ? interBorder : ""}`)
 			.join("") +
 		end;
 	return result;
@@ -85,17 +73,11 @@ export const drawSegment = (
 		" ".repeat(Math.max(fullLineLength - endPos, 0));
 
 	const startChar =
-		position === "top"
-			? BorderChar.leftTop[lineStyle]
-			: BorderChar.leftBottom[lineStyle];
+		position === "top" ? BorderChar.leftTop[lineStyle] : BorderChar.leftBottom[lineStyle];
 	const endChar =
-		position === "top"
-			? BorderChar.rightTop[lineStyle]
-			: BorderChar.rightBottom[lineStyle];
+		position === "top" ? BorderChar.rightTop[lineStyle] : BorderChar.rightBottom[lineStyle];
 	const contentPointChar =
-		position === "top"
-			? BorderChar.bottomT[lineStyle]
-			: BorderChar.topT[lineStyle];
+		position === "top" ? BorderChar.bottomT[lineStyle] : BorderChar.topT[lineStyle];
 	const borderChar = BorderChar.horizontal[lineStyle];
 
 	const segmentRow =
@@ -106,27 +88,21 @@ export const drawSegment = (
 		borderChar.repeat(endPos - centerPointPos - 1) +
 		endChar;
 
-	return position === "top"
-		? `${contentRow}\n${segmentRow}`
-		: `${segmentRow}\n${contentRow}`;
+	return position === "top" ? `${contentRow}\n${segmentRow}` : `${segmentRow}\n${contentRow}`;
 };
 
 export const array2Doc = <T>(document: ArrayDocument<T>): string => {
 	const accessor = document.accessor ?? ((element) => String(element));
 	const style = document.style ?? DefaultDocumentStyle;
 	const stringArray =
-		typeof document.body === "string"
-			? document.body.split("")
-			: document.body.map(accessor);
+		typeof document.body === "string" ? document.body.split("") : document.body.map(accessor);
 
 	const parsedStrs: string[] = stringArray.map((str) =>
 		style.charLength ? str.substring(0, style.charLength) : str,
 	);
 
 	const maxLength = Math.max(...parsedStrs.map((s) => countTextLength(s)));
-	const paddedStr = parsedStrs.map((s) =>
-		padCenterFullWidthChar(s, maxLength, " "),
-	);
+	const paddedStr = parsedStrs.map((s) => padCenterFullWidthChar(s, maxLength, " "));
 	const arrayStr = array2String(paddedStr, style);
 
 	const cellLength = maxLength + 2 * style.paddingSpace;
